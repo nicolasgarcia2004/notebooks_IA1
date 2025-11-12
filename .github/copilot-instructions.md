@@ -1,3 +1,8 @@
+---
+description: AI rules derived by SpecStory from the project AI interaction history
+globs: *
+---
+
 # GitHub Copilot Instructions
 
 ## Project Overview
@@ -151,3 +156,59 @@ Common datasets referenced:
 4. Include the grading utilities if it's an assignment
 5. Set `np.random.seed(21)`
 6. Follow the outline structure with markdown sections
+
+## Git Workflow Recommendations
+To avoid merge conflicts and ensure smooth collaboration, follow these Git workflow recommendations:
+
+### Before Starting Work:
+```powershell
+# Always pull the latest changes from the main branch before starting any work
+git pull origin main
+```
+
+### Recommended Workflow:
+```powershell
+# 1. Check the status of your local repository
+git status
+
+# 2. If there are local changes, stash them temporarily
+git stash
+
+# 3. Pull the latest changes from the main branch
+git pull origin main
+
+# 4. Restore your stashed changes
+git stash pop
+
+# 5. If there are conflicts, resolve them BEFORE committing
+```
+
+### Using Separate Branches:
+```powershell
+# Create a new branch for your work
+git checkout -b mi-trabajo
+
+# Work normally, make commits...
+git add .
+git commit -m "mi cambio"
+
+# When finished, merge with main
+git checkout main
+git pull origin main
+git merge mi-trabajo
+```
+
+### Tips for Avoiding Conflicts:
+1. **Commit frequently:** Make small, logical commits with descriptive messages.
+2. **Pull before editing:** Always `git pull origin main` before starting work on a file.
+3. **Communicate:** Coordinate with other developers to avoid simultaneous edits to the same files.
+
+### Handling Merge Conflicts:
+If you encounter merge conflicts:
+1.  Do not panic.
+2.  Use VS Code's visual tools or the provided script (`python fix_notebook.py`) to resolve the conflicts.
+3.  Ensure the resolved file is valid and all necessary changes are included.
+
+## Spectory Files
+
+The `.spectory` files are created to record and manage user-AI interactions, which can be used to generate or update this `copilot-instructions.md` file. These files should not be manually modified. Any conflicts between `.spectory` files and rule files should be resolved by regenerating the `copilot-instructions.md` file using the latest interactions.
