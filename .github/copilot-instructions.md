@@ -27,7 +27,7 @@ notebooks_IA1/
 
 **Naming Convention:**
 - `XX_std_Notes_*.ipynb` - Lecture notes and tutorials
-- `Taller_std_XX_20252_*.ipynb` - Graded assignments/workshops
+- `Taller_std_XX_*.ipynb` - Graded assignments/workshops
 - XX = sequential number (01, 02, etc.)
 
 ## Standard Notebook Structure
@@ -212,3 +212,40 @@ If you encounter merge conflicts:
 ## Spectory Files
 
 The `.spectory` files are created to record and manage user-AI interactions, which can be used to generate or update this `copilot-instructions.md` file. These files should not be manually modified. Any conflicts between `.spectory` files and rule files should be resolved by regenerating the `copilot-instructions.md` file using the latest interactions.
+
+### SpecStory Details:
+- **Purpose**: Store the history of interactions with AI agents.
+- **Location**: Stored in the `.specstory/` directory.
+- **Key Files**:
+    - `.project.json`: Workspace ID and user association. **Do not modify manually**.
+    - `history/`: Stores conversation logs.
+    - `ai_rules_backups/`: Automatic backups of `copilot-instructions.md`.
+- **Usage**: Leave files as is. Include them in Git to maintain history. Read `history/` to recall past solutions.
+- **Conflicts**: Minor Pylance warnings in `copilot-instructions.md` regarding `globs: *` and unknown tools like `@title`, `@markdown` are not critical and do not affect functionality.
+
+## Git Error Handling
+
+### Line Ending Warnings (LF vs CRLF):
+- **Cause**: Git is configured to handle line endings differently on different operating systems (LF for Linux/macOS, CRLF for Windows).
+- **Solution**: Configure Git to handle line endings consistently. The following configuration is recommended:
+  ```powershell
+  git config --global core.autocrlf true  # For Windows: automatically convert LF to CRLF on checkout
+  git config --global core.autocrlf input # For Linux/macOS: convert CRLF to LF on commit
+  ```
+
+### Filename Too Long Error:
+- **Cause**: Windows has a maximum path length limit.
+- **Solution**:
+  1. Enable long paths in Windows (if possible).
+  2. Shorten the filename, or move the repository to a directory with a shorter path.
+  3. Configure Git to not track the problematic file:
+     ```powershell
+     git rm --cached ".specstory/history/2025-11-12_14-43Z-tengo-problemas-con-el-taller-4-no-me-deja-abrirlo,-antes-de-eso-guarde-los-cambios-en-la-rama-principal-de-unos-que-había-hecho-el-agente-codex-al-repositorio-con-unos-cambios-que-le-indique-el-codex.md"
+     git commit -m "Stop tracking long filename"
+     ```
+     Add `.specstory/history/2025-11-12_14-43Z-tengo-problemas-con-el-taller-4-no-me-deja-abrirlo,-antes-de-eso-guarde-los-cambios-en-la-rama-principal-de-unos-que-había-hecho-el-agente-codex-al-repositorio-con-unos-cambios-que-le-indique-el-codex.md` to `.gitignore` to prevent it from being tracked again.  Consider excluding the entire `.specstory/history` directory if these issues persist.
+
+## Workflow & Release Rules
+1. **Execute Verification Cells:** AI agents can execute the verification cells (e.g., `#@title **check your answer**`) to test exercise solutions.
+2. **Do Not Execute Submission Cells:** AI agents **must not** execute the submission cells (e.g., `#@title **send your answer**`) that submit grades.
+3. **Ensure Code Correctness:** Before committing, verify all exercise solution cells are free of errors and adhere to coding standards.
