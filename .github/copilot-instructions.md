@@ -69,6 +69,8 @@ Every assignment notebook includes a standard `check_solution_and_evaluate()` fu
 - **matplotlib.pyplot** - Basic plotting
 - **seaborn** - Statistical visualizations (theme: `sns.set_theme()`)
 - **plotly** - Interactive visualizations (used with cufflinks in offline mode)
+- **scikit-learn** - Classification, regression, statistics
+- **tensorflow/keras** - Deep learning
 
 ### ML/DL Libraries (in later notebooks)
 - **scikit-learn** - Classification, regression, statistics
